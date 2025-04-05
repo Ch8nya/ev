@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { VehicleWithDetails } from "@shared/types";
-import { Search, Plus, Check, AlertCircle } from "lucide-react";
+import { Search, Plus, Check, AlertCircle, Loader2 } from "lucide-react";
 import { useComparison } from "@/hooks/use-comparison";
 import { useDebounce } from "@/hooks/use-debounce";
 
 export default function SearchVehicles() {
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  const [isSearching, setIsSearching] = useState(false);
   const { toggleVehicle, isSelected, selectedVehicles } = useComparison();
   const maxVehiclesReached = selectedVehicles.length >= 3;
+  
+  // Track when the user starts typing to show "Searching..." message
+  useEffect(() => {
+    if (searchTerm && searchTerm !== debouncedSearchTerm) {
+      setIsSearching(true);
+    }
+  }, [searchTerm, debouncedSearchTerm]);
 
   // Fetch vehicles with search filter
   const { data: searchResults, isLoading } = useQuery({
@@ -31,6 +39,15 @@ export default function SearchVehicles() {
     },
     enabled: debouncedSearchTerm.trim().length > 0,
   });
+  
+  // Reset isSearching when results are loaded or when there's an error
+  useEffect(() => {
+    if (debouncedSearchTerm && !isLoading) {
+      // Add a slight delay to allow users to see "Searching..." message
+      const timer = setTimeout(() => setIsSearching(false), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading, debouncedSearchTerm]);
 
   return (
     <div className="bg-white rounded-lg shadow p-4 mb-6">
@@ -129,8 +146,18 @@ export default function SearchVehicles() {
         </div>
       )}
       
+      {/* Searching state */}
+      {isSearching && debouncedSearchTerm && (
+        <div className="mt-4 text-center py-4 bg-gray-50 rounded-md">
+          <div className="flex items-center justify-center space-x-2">
+            <Loader2 className="h-4 w-4 animate-spin text-gray-500" />
+            <p className="text-sm text-gray-500">Searching...</p>
+          </div>
+        </div>
+      )}
+      
       {/* No results state */}
-      {!isLoading && debouncedSearchTerm && (!searchResults?.data || searchResults.data.length === 0) && (
+      {!isLoading && !isSearching && debouncedSearchTerm && (!searchResults?.data || searchResults.data.length === 0) && (
         <div className="mt-4 text-center py-4 bg-gray-50 rounded-md">
           <p className="text-sm text-gray-500">No vehicles found matching "{debouncedSearchTerm}"</p>
         </div>
