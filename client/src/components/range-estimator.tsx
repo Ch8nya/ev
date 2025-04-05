@@ -280,16 +280,10 @@ export default function RangeEstimator({ vehicle }: RangeEstimatorProps) {
           />
         </div>
 
-        <div className="bg-gray-100 p-4 rounded-md space-y-3">
+        <div className="bg-gray-100 p-4 rounded-md">
           <p className="text-sm text-gray-600">
             <strong>Note:</strong> This range estimator uses research-backed formulas specific to Indian conditions.
             Baseline conditions: 40°C, AC On, 100 kg payload + 75 kg driver, 20% City / 15% State Hwy / 65% Natl Hwy, 80 km/h.
-          </p>
-          <p className="text-xs text-gray-500 italic">
-            <strong>Disclaimer:</strong> The range estimates provided are approximate calculations based on vehicle specifications and selected conditions. 
-            These should not be considered as actual values, as real-world range may vary significantly due to driving conditions, 
-            vehicle maintenance, battery health, and other factors beyond the scope of this estimator. 
-            Always ensure sufficient charge for your journey and consult with the vehicle manufacturer for more precise information.
           </p>
         </div>
       </div>

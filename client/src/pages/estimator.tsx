@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext, useRef, useEffect } from "react";
+import React, { useState, createContext, useContext } from "react";
 import { Link } from "wouter";
 import { ChevronLeft, Search, Plus, Check } from "lucide-react";
 import { VehicleWithDetails } from "@shared/types";
@@ -197,15 +197,6 @@ function EstimatorSearchVehicles() {
 
 function EstimatorPageContent() {
   const { selectedVehicle, removeVehicle } = useEstimator();
-  const estimatorRef = useRef<HTMLDivElement>(null);
-  
-  // Auto-scroll to the top of the estimator when a vehicle is selected
-  useEffect(() => {
-    if (selectedVehicle && estimatorRef.current) {
-      // Scroll the estimator into view with smooth behavior
-      estimatorRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, [selectedVehicle]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
@@ -229,7 +220,7 @@ function EstimatorPageContent() {
           <EstimatorSearchVehicles />
         </div>
       ) : (
-        <div className="mb-8" ref={estimatorRef}>
+        <div className="mb-8">
           <div className="bg-white shadow rounded-lg p-4 mb-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
