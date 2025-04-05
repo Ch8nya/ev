@@ -70,12 +70,13 @@ export default function VehicleDetails() {
             There was an error loading the vehicle details. Please try again later.
           </p>
           <div className="mt-4">
-            <Link href="/">
-              <a className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                <ChevronLeft className="mr-2 h-4 w-4" />
-                Back to Vehicle Listings
-              </a>
-            </Link>
+            <button 
+              onClick={() => window.history.back()}
+              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+            >
+              <ChevronLeft className="mr-2 h-4 w-4" />
+              Back to Vehicle Listings
+            </button>
           </div>
         </div>
       </div>
@@ -104,10 +105,13 @@ export default function VehicleDetails() {
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Navigation buttons */}
       <div className="mb-4 flex justify-between items-center">
-        <Link href="/" className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700">
+        <button 
+          onClick={() => window.history.back()} 
+          className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 bg-transparent border-none cursor-pointer"
+        >
           <ChevronLeft className="mr-1 h-4 w-4" />
           Back to all vehicles
-        </Link>
+        </button>
       </div>
 
       {/* Vehicle header */}

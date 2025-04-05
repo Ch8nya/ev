@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useComparison } from "../hooks/use-comparison";
 import { ChevronLeft, X } from "lucide-react";
 import { Link, useLocation } from "wouter";
@@ -10,6 +10,14 @@ export default function ComparePage() {
   const { selectedVehicles, removeVehicle } = useComparison();
   const [, navigate] = useLocation();
   const isMobile = useMediaQuery("(max-width: 640px)");
+  const pageRef = useRef<HTMLDivElement>(null);
+  
+  // Auto-scroll to top of page when the component mounts or vehicles change
+  useEffect(() => {
+    if (pageRef.current) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [selectedVehicles]);
 
   // Function to determine if a value is the same across all vehicles being compared
   const isCommonValue = (key: keyof typeof selectedVehicles[0], transform?: (val: any) => string) => {
@@ -56,7 +64,7 @@ export default function ComparePage() {
   // If no vehicles are selected, show a message to add vehicles
   if (selectedVehicles.length === 0) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
+      <div ref={pageRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
         <div className="mb-6">
           <Link href="/" className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700">
             <ChevronLeft className="mr-1 h-4 w-4" />
@@ -80,7 +88,7 @@ export default function ComparePage() {
   // If only one vehicle is selected, still allow comparison but show a message
   if (selectedVehicles.length === 1) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
+      <div ref={pageRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
         <div className="mb-6">
           <Link href="/" className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700">
             <ChevronLeft className="mr-1 h-4 w-4" />
@@ -122,7 +130,7 @@ export default function ComparePage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
+    <div ref={pageRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
       {/* Back button */}
       <div className="mb-6">
         <Link href="/" className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700">
