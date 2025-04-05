@@ -61,36 +61,20 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="md:hidden bg-background border-t border-border/40">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link 
-              href="/" 
-              className="text-primary hover:text-accent block px-3 py-2 rounded-md text-base font-medium font-styreneB transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
+            <Link href="/" className="text-primary hover:text-accent block px-3 py-2 rounded-md text-base font-medium font-styreneB transition-colors">
               Home
             </Link>
-            <Link 
-              href="/estimator" 
-              className="text-secondary hover:text-accent block px-3 py-2 rounded-md text-base font-medium font-styreneB transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
+            <Link href="/estimator" className="text-secondary hover:text-accent block px-3 py-2 rounded-md text-base font-medium font-styreneB transition-colors">
               Range Estimator
             </Link>
-            <Link 
-              href="/compare" 
-              className="text-secondary hover:text-accent block px-3 py-2 rounded-md text-base font-medium font-styreneB transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
+            <Link href="/compare" className="text-secondary hover:text-accent block px-3 py-2 rounded-md text-base font-medium font-styreneB transition-colors">
               Compare
             </Link>
-            <Link 
-              href="/about" 
-              className="text-secondary hover:text-accent block px-3 py-2 rounded-md text-base font-medium font-styreneB transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
+            <Link href="/about" className="text-secondary hover:text-accent block px-3 py-2 rounded-md text-base font-medium font-styreneB transition-colors">
               About
             </Link>
             <div className="pt-2 pb-3">
-              <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/contact">
                 <Button variant="default" className="w-full bg-black hover:bg-black/90 text-white">
                   Contact
                 </Button>

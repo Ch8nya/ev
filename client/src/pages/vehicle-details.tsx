@@ -104,10 +104,7 @@ export default function VehicleDetails() {
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Navigation buttons */}
       <div className="mb-4 flex justify-between items-center">
-        <Link 
-          href="javascript:history.back()" 
-          className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700"
-        >
+        <Link href="/" className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700">
           <ChevronLeft className="mr-1 h-4 w-4" />
           Back to all vehicles
         </Link>
