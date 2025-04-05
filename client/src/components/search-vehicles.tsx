@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { VehicleWithDetails } from "@shared/types";
-import { Search, Plus, Check } from "lucide-react";
+import { Search, Plus, Check, AlertCircle } from "lucide-react";
 import { useComparison } from "@/hooks/use-comparison";
 import { useDebounce } from "@/hooks/use-debounce";
 
 export default function SearchVehicles() {
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
-  const { toggleVehicle, isSelected } = useComparison();
+  const { toggleVehicle, isSelected, selectedVehicles } = useComparison();
+  const maxVehiclesReached = selectedVehicles.length >= 3;
 
   // Fetch vehicles with search filter
   const { data: searchResults, isLoading } = useQuery({
@@ -35,6 +36,16 @@ export default function SearchVehicles() {
     <div className="bg-white rounded-lg shadow p-4 mb-6">
       <h2 className="text-lg font-medium text-gray-900 mb-4">Search and Add Vehicles to Compare</h2>
       
+      {/* Max vehicles notification */}
+      {maxVehiclesReached && (
+        <div className="flex items-center p-3 mb-4 bg-amber-50 border border-amber-200 rounded-md">
+          <AlertCircle className="h-5 w-5 text-amber-500 mr-2 flex-shrink-0" />
+          <p className="text-sm text-amber-700">
+            At most 3 vehicles can be compared at a time. Please remove a vehicle before adding another.
+          </p>
+        </div>
+      )}
+      
       {/* Search input */}
       <div className="mb-4">
         <div className="relative rounded-md shadow-sm">
@@ -47,6 +58,7 @@ export default function SearchVehicles() {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 pr-12 sm:text-sm border-gray-300 rounded-md"
             placeholder="Search by manufacturer, model or variant..."
+            disabled={maxVehiclesReached}
           />
           {searchTerm && (
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
